@@ -82,15 +82,6 @@ public class Main {
 		
 		//task2(root);
 		// Task 4
-		System.out.println("package hu.bme.mit.yakindu.analysis.workhere;");
-		System.out.println("import java.io.IOException;");
-		System.out.println("import hu.bme.mit.yakindu.analysis.RuntimeService;");
-		System.out.println("import hu.bme.mit.yakindu.analysis.TimerService;");
-		System.out.println("import hu.bme.mit.yakindu.analysis.example.ExampleStatemachine;");
-		System.out.println("import hu.bme.mit.yakindu.analysis.example.IExampleStatemachine;");
-		System.out.println("import java.util.Scanner;");
-		System.out.println();
-		System.out.println();
 		System.out.println("public class RunStatechart {");
 		System.out.println("	public static void main(String[] args) throws IOException {");
 		System.out.println("		Scanner scanner = new Scanner(System.in);");
