@@ -6,7 +6,9 @@ import org.junit.Test;
 import org.yakindu.sct.model.sgraph.State;
 import org.yakindu.sct.model.sgraph.Statechart;
 import org.yakindu.sct.model.sgraph.Transition;
-
+import org.yakindu.base.types.Event;
+import org.yakindu.sct.model.stext.stext.EventDefinition;
+import org.yakindu.sct.model.stext.stext.VariableDefinition;
 
 import hu.bme.mit.model2gml.Model2GML;
 import hu.bme.mit.yakindu.analysis.modelmanager.ModelManager;
@@ -33,14 +35,7 @@ public class Main {
 	}
 		return true;}
 	
-	public static void main(String[] args) {
-		ModelManager manager = new ModelManager();
-		Model2GML model2gml = new Model2GML();
-		
-		// Loading model
-		EObject root = manager.loadModel("model_input/example.sct");
-		
-		// Reading model
+	public static void task2(EObject root) {
 		Statechart s = (Statechart) root;
 		TreeIterator<EObject> iterator = s.eAllContents();
 		int anonymusState_db =1;
@@ -70,6 +65,34 @@ public class Main {
 				System.out.println(transition.getSource().getName()+"->"+transition.getTarget().getName());
 			}
 		}
+	}
+	
+	public static void main(String[] args) {
+		ModelManager manager = new ModelManager();
+		Model2GML model2gml = new Model2GML();
+		
+		// Loading model
+		EObject root = manager.loadModel("model_input/example.sct");
+		
+		//task2(root);
+		// Task 4.3-4.4
+		Statechart s = (Statechart) root;
+		TreeIterator<EObject> iterator = s.eAllContents();
+		System.out.println("	public static void print(IExample Statemachine s){");
+		while (iterator.hasNext()) {
+			EObject content = iterator.next();
+			if(content instanceof EventDefinition) {
+				EventDefinition ed = (EventDefinition) content;
+				if(ed.getDirection().toString().equals("in")) {
+					System.out.println("		System.out.println(\""+ed.getName().toUpperCase().charAt(0)+" = \" + s.getSCInterface().get"+ed.getName().substring(0, 1).toUpperCase()+ed.getName().substring(1)+"());");
+				}
+			}
+			if(content instanceof VariableDefinition) {
+				VariableDefinition vd = (VariableDefinition) content;
+				System.out.println("		System.out.println(\""+vd.getName().toUpperCase().charAt(0)+" = \" + s.getSCInterface().get"+vd.getName().substring(0, 1).toUpperCase()+vd.getName().substring(1)+"());");
+			}
+		}
+		System.out.println("	}");
 		
 		// Transforming the model into a graph representation
 		String content = model2gml.transform(root);
