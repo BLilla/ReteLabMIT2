@@ -17,7 +17,6 @@ public class RunStatechart {
 		RuntimeService.getInstance().registerStatemachine(s, 200);
 		s.init();
 		s.enter();
-		s.runCycle();
 		while(scanner.hasNextLine()) {
 			String line;
 			switch(line=scanner.nextLine()) {

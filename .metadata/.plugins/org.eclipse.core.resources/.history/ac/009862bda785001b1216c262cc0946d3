@@ -99,7 +99,6 @@ public class Main {
 		System.out.println("		RuntimeService.getInstance().registerStatemachine(s, 200);");
 		System.out.println("		s.init();");
 		System.out.println("		s.enter();");
-		System.out.println("		s.runCycle();");
 		System.out.println("		while(scanner.hasNextLine()) {");
 		System.out.println("			String line;");
 		System.out.println("			switch(line=scanner.nextLine()) {");
