@@ -8,6 +8,9 @@ import hu.bme.mit.yakindu.analysis.example.ExampleStatemachine;
 import hu.bme.mit.yakindu.analysis.example.IExampleStatemachine;
 import java.util.Scanner;
 
+
+
+
 public class RunStatechart {
 	
 	public static void main(String[] args) throws IOException {
@@ -17,38 +20,23 @@ public class RunStatechart {
 		RuntimeService.getInstance().registerStatemachine(s, 200);
 		s.init();
 		s.enter();
-		while(scanner.hasNextLine()) {
-			String line;
-			switch(line=scanner.nextLine()) {
-				case "start":
-					s.raiseStart();
-					s.runCycle();
-					print(s);
-					break;
-				
-				case "white":
-					s.raiseWhite();
-					s.runCycle();
-					print(s);
-					break;
-				
-				case "black":
-					s.raiseBlack();
-					s.runCycle();
-					print(s);
-					break;
-				
-				case "exit":
-					print(s);
-					scanner.close();
-					System.exit(0);
-					break;
-				
-				default:
-					break;
+		while(true) {
+			String line = scanner.nextLine();
+			System.out.println(line);
+			if(line==null) {
+				scanner.close();
+			}
+			s.runCycle();
+			print(s);
+			s.raiseStart();
+			s.runCycle();
+			System.in.read();
+			s.raiseWhite();
+			s.runCycle();
+			print(s);
+			System.exit(0);
 		}
 	}
-}
 
 	public static void print(IExampleStatemachine s) {
 		System.out.println("W = " + s.getSCInterface().getWhiteTime());

@@ -47,6 +47,7 @@ public class RunStatechart {
 				default:
 					break;
 		}
+		scanner.close();
 	}
 }
 

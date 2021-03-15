@@ -17,8 +17,8 @@ public class RunStatechart {
 		RuntimeService.getInstance().registerStatemachine(s, 200);
 		s.init();
 		s.enter();
+		String line;
 		while(scanner.hasNextLine()) {
-			String line;
 			switch(line=scanner.nextLine()) {
 				case "start":
 					s.raiseStart();
@@ -47,6 +47,7 @@ public class RunStatechart {
 				default:
 					break;
 		}
+		scanner.close();
 	}
 }
 
