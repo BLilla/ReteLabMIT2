@@ -5,6 +5,8 @@ import org.eclipse.emf.ecore.EObject;
 import org.junit.Test;
 import org.yakindu.sct.model.sgraph.State;
 import org.yakindu.sct.model.sgraph.Statechart;
+import org.yakindu.sct.model.sgraph.Transition;
+
 
 import hu.bme.mit.model2gml.Model2GML;
 import hu.bme.mit.yakindu.analysis.modelmanager.ModelManager;
@@ -14,6 +16,22 @@ public class Main {
 	public void test() {
 		main(new String[0]);
 	}
+	
+	//2.6 Javasolt név egyediségének vizsgálata
+	public static boolean nameIsFree(EObject root,int anonymusState_db) {
+		Statechart s = (Statechart) root;
+		TreeIterator<EObject> iterator = s.eAllContents();
+		while (iterator.hasNext()) {
+			EObject content = iterator.next();
+			if(content instanceof State) {
+				State state = (State) content;
+				String nev = "State"+anonymusState_db;
+				if(state.getName()!=null && state.getName().equals(nev)){
+					return false;
+				}
+			}
+	}
+		return true;}
 	
 	public static void main(String[] args) {
 		ModelManager manager = new ModelManager();
@@ -25,11 +43,31 @@ public class Main {
 		// Reading model
 		Statechart s = (Statechart) root;
 		TreeIterator<EObject> iterator = s.eAllContents();
+		int anonymusState_db =1;
 		while (iterator.hasNext()) {
 			EObject content = iterator.next();
 			if(content instanceof State) {
 				State state = (State) content;
-				System.out.println(state.getName());
+				// Csapda állapotok kiírása -- Task 2.4
+				if(state.getOutgoingTransitions().isEmpty()) {
+					System.out.println("Csapda "+state.getName());
+				}
+				else
+					System.out.println(state.getName());
+				
+				// Névtelen állapotok kereése és javaslattétel a nevükre
+				if(state.getName()==null || state.getName().equals("")) {
+					if(!nameIsFree(root,anonymusState_db)) {
+						anonymusState_db ++;
+					}
+					System.out.println("Névtelen állapot. Javasolt név: "+"State"+anonymusState_db);
+					anonymusState_db ++;
+				}
+			}
+			// Tranzíciók kiírása -- Task 2.3
+			if(content instanceof Transition) {
+				Transition transition = (Transition) content;
+				System.out.println(transition.getSource().getName()+"->"+transition.getTarget().getName());
 			}
 		}
 		
