@@ -12,42 +12,42 @@ public class ExampleStatemachine implements IExampleStatemachine {
 			start = true;
 		}
 		
-		private boolean whiteTest;
+		private boolean white;
 		
-		public void raiseWhiteTest() {
-			whiteTest = true;
+		public void raiseWhite() {
+			white = true;
 		}
 		
-		private boolean blackTest;
+		private boolean black;
 		
-		public void raiseBlackTest() {
-			blackTest = true;
+		public void raiseBlack() {
+			black = true;
 		}
 		
-		private long whiteTimeTest;
+		private long whiteTime;
 		
-		public long getWhiteTimeTest() {
-			return whiteTimeTest;
+		public long getWhiteTime() {
+			return whiteTime;
 		}
 		
-		public void setWhiteTimeTest(long value) {
-			this.whiteTimeTest = value;
+		public void setWhiteTime(long value) {
+			this.whiteTime = value;
 		}
 		
-		private long blackTimeTest;
+		private long blackTime;
 		
-		public long getBlackTimeTest() {
-			return blackTimeTest;
+		public long getBlackTime() {
+			return blackTime;
 		}
 		
-		public void setBlackTimeTest(long value) {
-			this.blackTimeTest = value;
+		public void setBlackTime(long value) {
+			this.blackTime = value;
 		}
 		
 		protected void clearEvents() {
 			start = false;
-			whiteTest = false;
-			blackTest = false;
+			white = false;
+			black = false;
 		}
 	}
 	
@@ -84,9 +84,9 @@ public class ExampleStatemachine implements IExampleStatemachine {
 		}
 		clearEvents();
 		clearOutEvents();
-		sCInterface.setWhiteTimeTest(60);
+		sCInterface.setWhiteTime(60);
 		
-		sCInterface.setBlackTimeTest(60);
+		sCInterface.setBlackTime(60);
 	}
 	
 	public void enter() {
@@ -207,28 +207,28 @@ public class ExampleStatemachine implements IExampleStatemachine {
 		sCInterface.raiseStart();
 	}
 	
-	public void raiseWhiteTest() {
-		sCInterface.raiseWhiteTest();
+	public void raiseWhite() {
+		sCInterface.raiseWhite();
 	}
 	
-	public void raiseBlackTest() {
-		sCInterface.raiseBlackTest();
+	public void raiseBlack() {
+		sCInterface.raiseBlack();
 	}
 	
-	public long getWhiteTimeTest() {
-		return sCInterface.getWhiteTimeTest();
+	public long getWhiteTime() {
+		return sCInterface.getWhiteTime();
 	}
 	
-	public void setWhiteTimeTest(long value) {
-		sCInterface.setWhiteTimeTest(value);
+	public void setWhiteTime(long value) {
+		sCInterface.setWhiteTime(value);
 	}
 	
-	public long getBlackTimeTest() {
-		return sCInterface.getBlackTimeTest();
+	public long getBlackTime() {
+		return sCInterface.getBlackTime();
 	}
 	
-	public void setBlackTimeTest(long value) {
-		sCInterface.setBlackTimeTest(value);
+	public void setBlackTime(long value) {
+		sCInterface.setBlackTime(value);
 	}
 	
 	/* Entry action for state 'Black'. */
@@ -345,13 +345,13 @@ public class ExampleStatemachine implements IExampleStatemachine {
 		
 		if (try_transition) {
 			if (react()==false) {
-				if (sCInterface.blackTest) {
+				if (sCInterface.black) {
 					exitSequence_main_region_Black();
 					enterSequence_main_region_White_default();
 				} else {
 					if (timeEvents[0]) {
 						exitSequence_main_region_Black();
-						sCInterface.setBlackTimeTest(sCInterface.getBlackTimeTest() - 1);
+						sCInterface.setBlackTime(sCInterface.getBlackTime() - 1);
 						
 						enterSequence_main_region_Black_default();
 					} else {
@@ -368,13 +368,13 @@ public class ExampleStatemachine implements IExampleStatemachine {
 		
 		if (try_transition) {
 			if (react()==false) {
-				if (sCInterface.whiteTest) {
+				if (sCInterface.white) {
 					exitSequence_main_region_White();
 					enterSequence_main_region_Black_default();
 				} else {
 					if (timeEvents[1]) {
 						exitSequence_main_region_White();
-						sCInterface.setWhiteTimeTest(sCInterface.getWhiteTimeTest() - 1);
+						sCInterface.setWhiteTime(sCInterface.getWhiteTime() - 1);
 						
 						enterSequence_main_region_White_default();
 					} else {
